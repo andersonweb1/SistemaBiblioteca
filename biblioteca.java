@@ -46,4 +46,24 @@ public class biblioteca {
         return false;
     }
 
+    // Filtrar libros por autor
+    public ArrayList<Libro> filtrarPorAutor(String autor) {
+
+        if (autor == null || autor.trim().isEmpty()) {
+            return obtenerTodos();
+        }
+
+        ArrayList<Libro> resultado = new ArrayList<>();
+
+        for (Libro libro : libros) {
+
+            if (libro.getAutor().equalsIgnoreCase(autor.trim())) {
+                resultado.add(libro);
+            }
+        }
+
+        return resultado;
+    }
+
+
 }
