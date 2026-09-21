@@ -65,5 +65,35 @@ public class biblioteca {
         return resultado;
     }
 
+    // Eliminar libro
+    public void eliminarLibro(String isbn) {
+
+        Libro libroEliminar = null;
+
+        for (Libro libro : libros) {
+
+            if (libro.getIsbn().equalsIgnoreCase(isbn)) {
+                libroEliminar = libro;
+                break;
+            }
+        }
+
+        if (libroEliminar != null) {
+
+            libros.remove(libroEliminar);
+
+            String autor = libroEliminar.getAutor();
+
+            if (librosPorAutor.containsKey(autor)) {
+
+                librosPorAutor.get(autor).remove(libroEliminar);
+
+                if (librosPorAutor.get(autor).isEmpty()) {
+                    librosPorAutor.remove(autor);
+                }
+            }
+        }
+    }
+
 
 }
