@@ -29,4 +29,21 @@ public class biblioteca {
             librosPorAutor.put(autor, new ArrayList<>());
         }
 
+        librosPorAutor.get(autor).add(libro);
+    }
+
+
+    // Verificar si existe un ISBN
+    public boolean existeIsbn(String isbn) {
+
+        for (Libro libro : libros) {
+
+            if (libro.getIsbn().equalsIgnoreCase(isbn)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
