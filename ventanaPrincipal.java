@@ -98,3 +98,18 @@ public class VentanaPrincipal extends JFrame {
         add(panelPrincipal);
     }
 
+    private void crearTabla(JPanel panelPrincipal) {
+
+        String[] columnas = {"Título", "Autor", "ISBN", "Género", "Año", "Copias"
+        
+        };
+
+        modeloTabla = new DefaultTableModel(columnas, 0);
+
+        tabla = new JTable(modeloTabla);
+
+        JScrollPane scroll = new JScrollPane(tabla);
+
+        panelPrincipal.add(scroll, BorderLayout.EAST);
+    }
+
