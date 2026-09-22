@@ -33,4 +33,13 @@ public class VentanaPrincipal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
+    private void crearInterfaz() {
+
+        JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
+
+        JPanel panelFormulario = new JPanel(
+                new GridLayout(6, 2, 5, 5)
+        );
+
+
 
