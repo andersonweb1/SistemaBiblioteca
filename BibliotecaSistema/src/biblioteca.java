@@ -12,13 +12,13 @@ public class biblioteca {
         librosPorAutor = new HashMap<>();
     }
 
-    // Agregar libro
+    // Agregar Libro
     public void agregarLibro(Libro libro) {
 
         if (existeIsbn(libro.getISBN())) {
 
             throw new IllegalArgumentException(
-                    "Ya existe un libro con ese ISBN."
+                    "Ya existe un Libro con ese ISBN."
             );
         }
 
@@ -75,7 +75,7 @@ public class biblioteca {
         return resultado;
     }
 
-    // Eliminar libro
+    // Eliminar Libro
     public void eliminarLibro(String isbn) {
 
         Libro libroEliminar = null;

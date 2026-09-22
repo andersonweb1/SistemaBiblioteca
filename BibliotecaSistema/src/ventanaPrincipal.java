@@ -122,10 +122,10 @@ public class ventanaPrincipal extends JFrame {
         JPanel panelBotones = new JPanel();
 
         btnAgregar =
-                new JButton("Agregar libro");
+                new JButton("Agregar Libro");
 
         btnEliminar =
-                new JButton("Eliminar libro");
+                new JButton("Eliminar Libro");
 
         btnMostrarTodos =
                 new JButton("Mostrar todos");
@@ -194,7 +194,6 @@ public class ventanaPrincipal extends JFrame {
         modeloTabla =
                 new DefaultTableModel(columnas, 0) {
 
-                    @Override
                     public boolean isCellEditable(
                             int row,
                             int column) {
@@ -223,7 +222,6 @@ public class ventanaPrincipal extends JFrame {
         btnAgregar.addActionListener(
                 new ActionListener() {
 
-                    @Override
                     public void actionPerformed(
                             ActionEvent e) {
 
@@ -235,7 +233,6 @@ public class ventanaPrincipal extends JFrame {
         btnEliminar.addActionListener(
                 new ActionListener() {
 
-                    @Override
                     public void actionPerformed(
                             ActionEvent e) {
 
@@ -247,7 +244,6 @@ public class ventanaPrincipal extends JFrame {
         btnMostrarTodos.addActionListener(
                 new ActionListener() {
 
-                    @Override
                     public void actionPerformed(
                             ActionEvent e) {
 
@@ -256,10 +252,8 @@ public class ventanaPrincipal extends JFrame {
                 }
         );
 
-        btnFiltrar.addActionListener(
-                new ActionListener() {
+        btnFiltrar.addActionListener(new ActionListener() {
 
-                    @Override
                     public void actionPerformed(
                             ActionEvent e) {
 
@@ -358,7 +352,7 @@ public class ventanaPrincipal extends JFrame {
             }
 
             /*
-             * Crear objeto libro
+             * Crear objeto Libro
              */
 
             Libro nuevoLibro =
@@ -406,10 +400,10 @@ public class ventanaPrincipal extends JFrame {
 
     private void mostrarTodos() {
 
-        ArrayList<Libro> libros =
+        ArrayList<Libro> Libros =
                 biblioteca.mostrarTodos();
 
-        actualizarTabla(libros);
+        actualizarTabla(Libros);
     }
 
     private void filtrarPorAutor() {
@@ -471,7 +465,7 @@ public class ventanaPrincipal extends JFrame {
 
             JOptionPane.showMessageDialog(
                     this,
-                    "Seleccione un libro de la tabla."
+                    "Seleccione un Libro de la tabla."
             );
 
             return;
@@ -496,7 +490,7 @@ public class ventanaPrincipal extends JFrame {
         int respuesta =
                 JOptionPane.showConfirmDialog(
                         this,
-                        "¿Está seguro de eliminar este libro?",
+                        "¿Está seguro de eliminar este Libro?",
                         "Confirmar eliminación",
                         JOptionPane.YES_NO_OPTION
                 );
