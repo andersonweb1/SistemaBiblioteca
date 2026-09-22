@@ -25,3 +25,12 @@ public class VentanaPrincipal extends JFrame {
         configurarVentana();
         crearInterfaz();
     }
+
+    private void configurarVentana() {
+
+        setTitle("Sistema de Gestión de Biblioteca");
+        setSize(1000, 650);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+
