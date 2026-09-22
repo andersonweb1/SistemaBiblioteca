@@ -1,3 +1,11 @@
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+
 public class VentanaPrincipal extends JFrame {
 
     private Biblioteca biblioteca;
@@ -235,6 +243,25 @@ public class VentanaPrincipal extends JFrame {
                 biblioteca.filtrarPorAutor(autor);
 
         actualizarTabla(resultados);
+    }
+
+    private void actualizarTabla(ArrayList<Libro> libros) {
+
+        modeloTabla.setRowCount(0);
+
+        for (Libro libro : libros) {
+
+            Object[] fila = {
+                    libro.getTitulo(),
+                    libro.getAutor(),
+                    libro.getIsbn(),
+                    libro.getGenero(),
+                    libro.getAnioPublicacion(),
+                    libro.getCopiasDisponibles()
+            };
+
+            modeloTabla.addRow(fila);
+        }
     }
 
 
