@@ -5,10 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+public class ventanaPrincipal extends JFrame {
 
-public class VentanaPrincipal extends JFrame {
-
-    private Biblioteca biblioteca;
+    private biblioteca biblioteca;
 
     private JTextField txtTitulo;
     private JTextField txtAutor;
@@ -26,9 +25,9 @@ public class VentanaPrincipal extends JFrame {
     private JButton btnMostrarTodos;
     private JButton btnFiltrar;
 
-    public VentanaPrincipal() {
+    public ventanaPrincipal() {
 
-        biblioteca = new Biblioteca();
+        biblioteca = new biblioteca();
 
         configurarVentana();
         crearInterfaz();
@@ -37,17 +36,29 @@ public class VentanaPrincipal extends JFrame {
     private void configurarVentana() {
 
         setTitle("Sistema de Gestión de Biblioteca");
+
         setSize(1000, 650);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setDefaultCloseOperation(
+                JFrame.EXIT_ON_CLOSE
+        );
+
         setLocationRelativeTo(null);
     }
+
     private void crearInterfaz() {
 
-        JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
+        JPanel panelPrincipal =
+                new JPanel(new BorderLayout(10, 10));
 
-        JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 5, 5)
+        /*
+         * Panel superior
+         */
 
-        );
+        JPanel panelFormulario =
+                new JPanel(
+                        new GridLayout(6, 2, 5, 5)
+                );
 
         txtTitulo = new JTextField();
         txtAutor = new JTextField();
@@ -56,115 +67,242 @@ public class VentanaPrincipal extends JFrame {
         txtAnio = new JTextField();
         txtCopias = new JTextField();
 
-        panelFormulario.add(new JLabel("Título:"));
+        panelFormulario.add(
+                new JLabel("Título:")
+        );
+
         panelFormulario.add(txtTitulo);
 
-        panelFormulario.add(new JLabel("Autor:"));
+        panelFormulario.add(
+                new JLabel("Autor:")
+        );
+
         panelFormulario.add(txtAutor);
 
-        panelFormulario.add(new JLabel("ISBN / Código:"));
+        panelFormulario.add(
+                new JLabel("ISBN / Código:")
+        );
+
         panelFormulario.add(txtIsbn);
 
-        panelFormulario.add(new JLabel("Género:"));
+        panelFormulario.add(
+                new JLabel("Género:")
+        );
+
         panelFormulario.add(txtGenero);
 
-        panelFormulario.add(new JLabel("Año de publicación:"));
+        panelFormulario.add(
+                new JLabel("Año de publicación:")
+        );
+
         panelFormulario.add(txtAnio);
 
-        panelFormulario.add(new JLabel("Copias disponibles:"));
+        panelFormulario.add(
+                new JLabel("Copias disponibles:")
+        );
+
         panelFormulario.add(txtCopias);
 
-        panelPrincipal.add(panelFormulario, BorderLayout.NORTH);
+        panelPrincipal.add(
+                panelFormulario,
+                BorderLayout.NORTH
+        );
+
+        /*
+         * Panel central
+         */
+
+        JPanel panelCentro =
+                new JPanel(new BorderLayout());
+
+        /*
+         * Botones
+         */
 
         JPanel panelBotones = new JPanel();
 
-        btnAgregar = new JButton("Agregar libro");
-        btnEliminar = new JButton("Eliminar libro");
-        btnMostrarTodos = new JButton("Mostrar todos");
+        btnAgregar =
+                new JButton("Agregar libro");
+
+        btnEliminar =
+                new JButton("Eliminar libro");
+
+        btnMostrarTodos =
+                new JButton("Mostrar todos");
 
         panelBotones.add(btnAgregar);
         panelBotones.add(btnEliminar);
         panelBotones.add(btnMostrarTodos);
 
-        panelPrincipal.add(panelBotones, BorderLayout.CENTER);
+        panelCentro.add(
+                panelBotones,
+                BorderLayout.NORTH
+        );
 
-        JPanel panelBusqueda = new JPanel();
+        /*
+         * Tabla
+         */
 
-        txtBuscarAutor = new JTextField(20);
-        btnFiltrar = new JButton("Filtrar por autor");
+        crearTabla(panelCentro);
 
-        panelBusqueda.add(new JLabel("Buscar autor:"));
+        panelPrincipal.add(
+                panelCentro,
+                BorderLayout.CENTER
+        );
+
+        /*
+         * Buscar por autor
+         */
+
+        JPanel panelBusqueda =
+                new JPanel();
+
+        txtBuscarAutor =
+                new JTextField(20);
+
+        btnFiltrar =
+                new JButton("Filtrar por autor");
+
+        panelBusqueda.add(
+                new JLabel("Buscar autor:")
+        );
+
         panelBusqueda.add(txtBuscarAutor);
         panelBusqueda.add(btnFiltrar);
 
-        panelPrincipal.add(panelBusqueda, BorderLayout.SOUTH);
-
-        crearTabla(panelPrincipal);
+        panelPrincipal.add(
+                panelBusqueda,
+                BorderLayout.SOUTH
+        );
 
         configurarEventos();
 
         add(panelPrincipal);
     }
 
-    private void crearTabla(JPanel panelPrincipal) {
+    private void crearTabla(JPanel panelCentro) {
 
-        String[] columnas = {"Título", "Autor", "ISBN", "Género", "Año", "Copias"
-
+        String[] columnas = {
+                "Título",
+                "Autor",
+                "ISBN",
+                "Género",
+                "Año",
+                "Copias"
         };
 
-        modeloTabla = new DefaultTableModel(columnas, 0);
+        modeloTabla =
+                new DefaultTableModel(columnas, 0) {
+
+                    @Override
+                    public boolean isCellEditable(
+                            int row,
+                            int column) {
+
+                        return false;
+                    }
+                };
 
         tabla = new JTable(modeloTabla);
 
-        JScrollPane scroll = new JScrollPane(tabla);
+        tabla.setSelectionMode(
+                ListSelectionModel.SINGLE_SELECTION
+        );
 
-        panelPrincipal.add(scroll, BorderLayout.EAST);
+        JScrollPane scroll =
+                new JScrollPane(tabla);
+
+        panelCentro.add(
+                scroll,
+                BorderLayout.CENTER
+        );
     }
 
     private void configurarEventos() {
 
-        btnAgregar.addActionListener(new ActionListener() {
+        btnAgregar.addActionListener(
+                new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
-                agregarLibro();
-            }
-        });
+                    @Override
+                    public void actionPerformed(
+                            ActionEvent e) {
 
-        btnEliminar.addActionListener(new ActionListener() {
+                        agregarLibro();
+                    }
+                }
+        );
 
-            public void actionPerformed(ActionEvent e) {
-                eliminarLibro();
-            }
-        });
+        btnEliminar.addActionListener(
+                new ActionListener() {
 
-        btnMostrarTodos.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(
+                            ActionEvent e) {
 
-            public void actionPerformed(ActionEvent e) {
-                mostrarTodos();
-            }
-        });
+                        eliminarLibro();
+                    }
+                }
+        );
 
-        btnFiltrar.addActionListener(new ActionListener() {
+        btnMostrarTodos.addActionListener(
+                new ActionListener() {
 
-            public void actionPerformed(ActionEvent e) {
-                filtrarPorAutor();
-            }
-        });
+                    @Override
+                    public void actionPerformed(
+                            ActionEvent e) {
+
+                        mostrarTodos();
+                    }
+                }
+        );
+
+        btnFiltrar.addActionListener(
+                new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(
+                            ActionEvent e) {
+
+                        filtrarPorAutor();
+                    }
+                }
+        );
     }
 
     private void agregarLibro() {
 
-        String titulo = txtTitulo.getText().trim();
-        String autor = txtAutor.getText().trim();
-        String isbn = txtIsbn.getText().trim();
-        String genero = txtGenero.getText().trim();
-        String anioTexto = txtAnio.getText().trim();
-        String copiasTexto = txtCopias.getText().trim();
+        String titulo =
+                txtTitulo.getText().trim();
 
-        if (titulo.isEmpty() || autor.isEmpty() || isbn.isEmpty() || genero.isEmpty() || anioTexto.isEmpty() || copiasTexto.isEmpty()) {
+        String autor =
+                txtAutor.getText().trim();
+
+        String isbn =
+                txtIsbn.getText().trim();
+
+        String genero =
+                txtGenero.getText().trim();
+
+        String anioTexto =
+                txtAnio.getText().trim();
+
+        String copiasTexto =
+                txtCopias.getText().trim();
+
+        /*
+         * Validar campos vacíos
+         */
+
+        if (titulo.isEmpty()
+                || autor.isEmpty()
+                || isbn.isEmpty()
+                || genero.isEmpty()
+                || anioTexto.isEmpty()
+                || copiasTexto.isEmpty()) {
 
             JOptionPane.showMessageDialog(
-                    this, "Todos los campos son obligatorios."
+                    this,
+                    "Todos los campos son obligatorios."
             );
 
             return;
@@ -172,36 +310,78 @@ public class VentanaPrincipal extends JFrame {
 
         try {
 
-            int anio = Integer.parseInt(anioTexto);
-            int copias = Integer.parseInt(copiasTexto);
+            int anio =
+                    Integer.parseInt(anioTexto);
 
-            int anioActual = java.time.Year.now().getValue();
+            int copias =
+                    Integer.parseInt(copiasTexto);
+
+            int anioActual =
+                    java.time.Year.now().getValue();
+
+            /*
+             * Validar año
+             */
+
+            if (anio <= 0) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "El año debe ser mayor que 0."
+                );
+
+                return;
+            }
 
             if (anio > anioActual) {
 
                 JOptionPane.showMessageDialog(
-                        this, "El año no puede ser mayor al año actual."
+                        this,
+                        "El año no puede ser mayor al año actual."
                 );
 
                 return;
             }
+
+            /*
+             * Validar copias
+             */
 
             if (copias < 0) {
 
                 JOptionPane.showMessageDialog(
-                        this, "Las copias no pueden ser negativas."
+                        this,
+                        "Las copias no pueden ser negativas."
                 );
 
                 return;
             }
 
-            Libro nuevoLibro = new Libro(titulo, autor, isbn, genero, anio, copias
+            /*
+             * Crear objeto libro
+             */
+
+            Libro nuevoLibro =
+                    new Libro(
+                            titulo,
+                            autor,
+                            isbn,
+                            genero,
+                            anio,
+                            copias
+                    );
+
+            /*
+             * Agregar a la biblioteca
+             */
+
+            biblioteca.agregarLibro(
+                    nuevoLibro
             );
 
-            biblioteca.agregarLibro(nuevoLibro);
-
             JOptionPane.showMessageDialog(
-                    this, "Libro agregado correctamente."
+                    this,
+                    "Libro agregado correctamente."
             );
 
             limpiarCampos();
@@ -211,52 +391,66 @@ public class VentanaPrincipal extends JFrame {
         } catch (NumberFormatException ex) {
 
             JOptionPane.showMessageDialog(
-                    this, "El año y las copias deben ser números enteros."
+                    this,
+                    "El año y las copias deben ser números enteros."
             );
 
         } catch (IllegalArgumentException ex) {
 
             JOptionPane.showMessageDialog(
-                    this, ex.getMessage()
+                    this,
+                    ex.getMessage()
             );
         }
     }
 
     private void mostrarTodos() {
 
-        ArrayList<Libro> libros = biblioteca.obtenerTodos();
+        ArrayList<Libro> libros =
+                biblioteca.mostrarTodos();
 
         actualizarTabla(libros);
     }
 
     private void filtrarPorAutor() {
 
-        String autor = txtBuscarAutor.getText().trim();
+        String autor =
+                txtBuscarAutor.getText().trim();
 
         if (autor.isEmpty()) {
 
             mostrarTodos();
+
             return;
         }
 
         ArrayList<Libro> resultados =
-                biblioteca.filtrarPorAutor(autor);
+                biblioteca.filtrarPorAutor(
+                        autor
+                );
 
         actualizarTabla(resultados);
     }
 
-    private void actualizarTabla(ArrayList<Libro> libros) {
+    private void actualizarTabla(
+            ArrayList<Libro> libros) {
 
         modeloTabla.setRowCount(0);
 
         for (Libro libro : libros) {
 
             Object[] fila = {
+
                     libro.getTitulo(),
+
                     libro.getAutor(),
-                    libro.getIsbn(),
-                    libro.getGenero(),
-                    libro.getAnioPublicacion(),
+
+                    libro.getISBN(),
+
+                    libro.getCategoria(),
+
+                    libro.getAñoPublicacion(),
+
                     libro.getCopiasDisponibles()
             };
 
@@ -266,7 +460,12 @@ public class VentanaPrincipal extends JFrame {
 
     private void eliminarLibro() {
 
-        int filaSeleccionada = tabla.getSelectedRow();
+        int filaSeleccionada =
+                tabla.getSelectedRow();
+
+        /*
+         * Comprobar selección
+         */
 
         if (filaSeleccionada == -1) {
 
@@ -278,18 +477,32 @@ public class VentanaPrincipal extends JFrame {
             return;
         }
 
-        String isbn = modeloTabla
-                .getValueAt(filaSeleccionada, 2)
-                .toString();
+        /*
+         * Obtener ISBN de la tabla
+         */
 
-        int respuesta = JOptionPane.showConfirmDialog(
-                this,
-                "¿Está seguro de eliminar este libro?",
-                "Confirmar eliminación",
-                JOptionPane.YES_NO_OPTION
-        );
+        String isbn =
+                modeloTabla
+                        .getValueAt(
+                                filaSeleccionada,
+                                2
+                        )
+                        .toString();
 
-        if (respuesta == JOptionPane.YES_OPTION) {
+        /*
+         * Confirmar eliminación
+         */
+
+        int respuesta =
+                JOptionPane.showConfirmDialog(
+                        this,
+                        "¿Está seguro de eliminar este libro?",
+                        "Confirmar eliminación",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+        if (respuesta ==
+                JOptionPane.YES_OPTION) {
 
             biblioteca.eliminarLibro(isbn);
 
@@ -310,7 +523,7 @@ public class VentanaPrincipal extends JFrame {
         txtGenero.setText("");
         txtAnio.setText("");
         txtCopias.setText("");
+
+        txtTitulo.requestFocus();
     }
 }
-
-

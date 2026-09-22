@@ -1,12 +1,16 @@
-public class libro {
+public class Libro {
+
     private String titulo;
     private String autor;
-    private int ISBN;
+    private String ISBN;
     private String categoria;
     private int añoPublicacion;
     private int copiasDisponibles;
 
-    public libro(String titulo, String autor, int ISBN, String categoria, int añoPublicacion , int copiasDisponibles) {
+    public Libro(String titulo, String autor, String ISBN,
+                 String categoria, int añoPublicacion,
+                 int copiasDisponibles) {
+
         this.titulo = titulo;
         this.autor = autor;
         this.ISBN = ISBN;
@@ -14,27 +18,35 @@ public class libro {
         this.añoPublicacion = añoPublicacion;
         this.copiasDisponibles = copiasDisponibles;
     }
+
     public String getTitulo() {
         return titulo;
     }
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
     public String getAutor() {
         return autor;
     }
+
     public void setAutor(String autor) {
         this.autor = autor;
     }
-    public int getISBN() {
+
+    public String getISBN() {
         return ISBN;
     }
-    public void setISBN(int ISBN) {
+
+    public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
+
     public String getCategoria() {
         return categoria;
     }
+
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
@@ -46,14 +58,16 @@ public class libro {
     public void setAñoPublicacion(int añoPublicacion) {
         this.añoPublicacion = añoPublicacion;
     }
+
     public int getCopiasDisponibles() {
         return copiasDisponibles;
     }
+
     public void setCopiasDisponibles(int copiasDisponibles) {
         this.copiasDisponibles = copiasDisponibles;
     }
 
     public String toString() {
-        return titulo + "-" + autor + "-" + ISBN;
+        return titulo + " - " + autor + " - " + ISBN;
     }
 }

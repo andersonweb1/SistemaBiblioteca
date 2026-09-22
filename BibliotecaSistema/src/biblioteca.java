@@ -3,11 +3,11 @@ import java.util.HashMap;
 
 public class biblioteca {
 
-    private ArrayList<Libro>libros;
-
+    private ArrayList<Libro> libros;
     private HashMap<String, ArrayList<Libro>> librosPorAutor;
 
-    public Biblioteca() {
+    public biblioteca() {
+
         libros = new ArrayList<>();
         librosPorAutor = new HashMap<>();
     }
@@ -15,30 +15,34 @@ public class biblioteca {
     // Agregar libro
     public void agregarLibro(Libro libro) {
 
-        if (existeIsbn(libro.getIsbn())) {
+        if (existeIsbn(libro.getISBN())) {
+
             throw new IllegalArgumentException(
                     "Ya existe un libro con ese ISBN."
             );
         }
 
-        libro.add(libro);
+        libros.add(libro);
 
         String autor = libro.getAutor();
 
         if (!librosPorAutor.containsKey(autor)) {
-            librosPorAutor.put(autor, new ArrayList<>());
+
+            librosPorAutor.put(
+                    autor,
+                    new ArrayList<>()
+            );
         }
 
         librosPorAutor.get(autor).add(libro);
     }
-
 
     // Verificar si existe un ISBN
     public boolean existeIsbn(String isbn) {
 
         for (Libro libro : libros) {
 
-            if (libro.getIsbn().equalsIgnoreCase(isbn)) {
+            if (libro.getISBN().equalsIgnoreCase(isbn)) {
                 return true;
             }
         }
@@ -46,11 +50,17 @@ public class biblioteca {
         return false;
     }
 
+    // Mostrar todos los libros
+    public ArrayList<Libro> mostrarTodos() {
+
+        return new ArrayList<>(libros);
+    }
+
     // Filtrar libros por autor
     public ArrayList<Libro> filtrarPorAutor(String autor) {
 
         if (autor == null || autor.trim().isEmpty()) {
-            return obtenerTodos();
+            return mostrarTodos();
         }
 
         ArrayList<Libro> resultado = new ArrayList<>();
@@ -72,7 +82,8 @@ public class biblioteca {
 
         for (Libro libro : libros) {
 
-            if (libro.getIsbn().equalsIgnoreCase(isbn)) {
+            if (libro.getISBN().equalsIgnoreCase(isbn)) {
+
                 libroEliminar = libro;
                 break;
             }
@@ -86,14 +97,15 @@ public class biblioteca {
 
             if (librosPorAutor.containsKey(autor)) {
 
-                librosPorAutor.get(autor).remove(libroEliminar);
+                librosPorAutor
+                        .get(autor)
+                        .remove(libroEliminar);
 
                 if (librosPorAutor.get(autor).isEmpty()) {
+
                     librosPorAutor.remove(autor);
                 }
             }
         }
     }
-
-
 }

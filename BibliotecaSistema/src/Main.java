@@ -6,7 +6,7 @@ public class Main {
 
         SwingUtilities.invokeLater(() -> {
 
-            VentanaPrincipal ventana = new VentanaPrincipal();
+            ventanaPrincipal ventana = new ventanaPrincipal();
 
             ventana.setVisible(true);
         });
