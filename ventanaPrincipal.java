@@ -101,7 +101,7 @@ public class VentanaPrincipal extends JFrame {
     private void crearTabla(JPanel panelPrincipal) {
 
         String[] columnas = {"Título", "Autor", "ISBN", "Género", "Año", "Copias"
-        
+
         };
 
         modeloTabla = new DefaultTableModel(columnas, 0);
@@ -111,5 +111,36 @@ public class VentanaPrincipal extends JFrame {
         JScrollPane scroll = new JScrollPane(tabla);
 
         panelPrincipal.add(scroll, BorderLayout.EAST);
+    }
+
+    private void configurarEventos() {
+
+        btnAgregar.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                agregarLibro();
+            }
+        });
+
+        btnEliminar.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                eliminarLibro();
+            }
+        });
+
+        btnMostrarTodos.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                mostrarTodos();
+            }
+        });
+
+        btnFiltrar.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e) {
+                filtrarPorAutor();
+            }
+        });
     }
 
