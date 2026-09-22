@@ -137,10 +137,81 @@ public class VentanaPrincipal extends JFrame {
         });
 
         btnFiltrar.addActionListener(new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent e) {
                 filtrarPorAutor();
             }
         });
     }
+
+    private void agregarLibro() {
+
+        String titulo = txtTitulo.getText().trim();
+        String autor = txtAutor.getText().trim();
+        String isbn = txtIsbn.getText().trim();
+        String genero = txtGenero.getText().trim();
+        String anioTexto = txtAnio.getText().trim();
+        String copiasTexto = txtCopias.getText().trim();
+
+        if (titulo.isEmpty() || autor.isEmpty() || isbn.isEmpty() || genero.isEmpty() || anioTexto.isEmpty() || copiasTexto.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this, "Todos los campos son obligatorios."
+            );
+
+            return;
+        }
+
+        try {
+
+            int anio = Integer.parseInt(anioTexto);
+            int copias = Integer.parseInt(copiasTexto);
+
+            int anioActual = java.time.Year.now().getValue();
+
+            if (anio > anioActual) {
+
+                JOptionPane.showMessageDialog(
+                        this, "El año no puede ser mayor al año actual."
+                );
+
+                return;
+            }
+
+            if (copias < 0) {
+
+                JOptionPane.showMessageDialog(
+                        this, "Las copias no pueden ser negativas."
+                );
+
+                return;
+            }
+
+            Libro nuevoLibro = new Libro(titulo, autor, isbn, genero, anio, copias
+            );
+
+            biblioteca.agregarLibro(nuevoLibro);
+
+            JOptionPane.showMessageDialog(
+                    this, "Libro agregado correctamente."
+            );
+
+            limpiarCampos();
+
+            mostrarTodos();
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(
+                    this, "El año y las copias deben ser números enteros."
+            );
+
+        } catch (IllegalArgumentException ex) {
+
+            JOptionPane.showMessageDialog(
+                    this, ex.getMessage()
+            );
+        }
+    }
+
 
