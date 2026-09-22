@@ -214,4 +214,27 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    private void mostrarTodos() {
+
+        ArrayList<Libro> libros = biblioteca.obtenerTodos();
+
+        actualizarTabla(libros);
+    }
+
+    private void filtrarPorAutor() {
+
+        String autor = txtBuscarAutor.getText().trim();
+
+        if (autor.isEmpty()) {
+
+            mostrarTodos();
+            return;
+        }
+
+        ArrayList<Libro> resultados =
+                biblioteca.filtrarPorAutor(autor);
+
+        actualizarTabla(resultados);
+    }
+
 
