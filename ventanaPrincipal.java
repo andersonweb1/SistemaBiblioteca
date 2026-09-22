@@ -264,4 +264,53 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
+    private void eliminarLibro() {
+
+        int filaSeleccionada = tabla.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Seleccione un libro de la tabla."
+            );
+
+            return;
+        }
+
+        String isbn = modeloTabla
+                .getValueAt(filaSeleccionada, 2)
+                .toString();
+
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de eliminar este libro?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+
+            biblioteca.eliminarLibro(isbn);
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Libro eliminado correctamente."
+            );
+
+            mostrarTodos();
+        }
+    }
+
+    private void limpiarCampos() {
+
+        txtTitulo.setText("");
+        txtAutor.setText("");
+        txtIsbn.setText("");
+        txtGenero.setText("");
+        txtAnio.setText("");
+        txtCopias.setText("");
+    }
+}
+
 
